@@ -33,11 +33,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
     </Reference>
@@ -47,6 +57,12 @@
     <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\Microsoft.Bcl.1.0.19\lib\net40\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.1.0.19\lib\net40\System.Threading.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,19 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectionConfig.cs" />
-    <Compile Include="Awaitable\System.Runtime.CompilerServices\AsyncTaskMethodBuilder.cs" />
-    <Compile Include="Awaitable\System.Runtime.CompilerServices\AsyncTaskMethodBuilderOfT.cs" />
-    <Compile Include="Awaitable\System.Runtime.CompilerServices\AsyncVoidMethodBuilder.cs" />
-    <Compile Include="Awaitable\System.Runtime.CompilerServices\IAsyncStateMachine.cs" />
-    <Compile Include="Awaitable\System.Runtime.CompilerServices\ICriticalNotifyCompletion.cs" />
-    <Compile Include="Awaitable\System.Runtime.CompilerServices\INotifyCompletion.cs" />
-    <Compile Include="Awaitable\System.Threading.Tasks\TaskAwaiter.cs" />
-    <Compile Include="Awaitable\System.Threading.Tasks\TaskAwaiterOfT.cs" />
-    <Compile Include="Awaitable\System.Threading.Tasks\TaskCoreExtensions.cs" />
-    <Compile Include="Awaitable\System.Threading.Tasks\TaskEx.cs" />
-    <Compile Include="Awaitable\System.Threading.Tasks\TaskSchedularHelper.cs" />
     <Compile Include="HttpClientBuilder.cs" />
     <Compile Include="Jobs\HiveJobCreateParameters.cs" />
+    <Compile Include="Jobs\Hive\HiveClient.cs" />
+    <Compile Include="Jobs\Hive\HiveClientConfig.cs" />
+    <Compile Include="Jobs\Hive\IReadResults.cs" />
+    <Compile Include="Jobs\IHadoopClientExtensions.cs" />
     <Compile Include="Jobs\IHadoopJobClient.cs" />
     <Compile Include="Jobs\JobCreateHttpResponse.cs" />
     <Compile Include="Jobs\JobCreateParameters.cs" />
@@ -99,6 +108,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

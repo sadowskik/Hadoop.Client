@@ -29,33 +29,12 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
 
         public string DeserializeJobSubmissionResponse(string payload)
         {
-            //var ret = UnknownJobId;
-            //using (var parser = new JsonParser(payload))
-            //{
-            //    var respObj = parser.ParseNext();
-            //    if (respObj == null || respObj.IsError || respObj.IsNullOrMissing || !respObj.IsObject)
-            //    {
-            //        throw new SerializationException(respObj.ToString());
-            //    }
-
-            //    var jobId = this.GetJsonPropertyStringValue(respObj, JobId);
-            //    if (string.IsNullOrEmpty(jobId))
-            //    {
-            //        var errorString = this.GetJsonPropertyStringValue(respObj, ErrorString);
-            //        if (!string.IsNullOrEmpty(errorString))
-            //        {
-            //            throw new InvalidOperationException(errorString);
-            //        }
-            //        throw new InvalidOperationException();
-            //    }
-            //    ret = jobId;
-            //}
-            //return ret;
-            throw new NotImplementedException();
+            return JObject.Parse(payload).Value<string>(JobId);
         }
 
         public JobList DeserializeListJobResult(string payload)
         {
+            int t = 2 + 2;
             //var ret = new JobList();
             //var list = new List<JobDetails>();
             //using (var parser = new JsonParser(payload))
