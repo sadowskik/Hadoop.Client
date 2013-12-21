@@ -8,12 +8,12 @@ namespace Hadoop.Client.Jobs.WebHCatalog
     public class WebHCatalogJobClient : IHadoopJobClient
     {
         private readonly ConnectionConfig _connectionConfig;
-        private readonly PayloadConverter _converter;
+        private readonly IPayloadConverter _converter;
 
         public WebHCatalogJobClient(ConnectionConfig connectionConfig)
         {
             _connectionConfig = connectionConfig;
-            _converter = new PayloadConverter();
+            _converter = new JsonPayloadConverter();
         }
 
         public async Task<JobList> ListJobs()

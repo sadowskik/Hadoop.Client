@@ -1,6 +1,6 @@
 ﻿namespace Hadoop.Client.Jobs.WebHCatalog
 {
-    internal static class HadoopRemoteRestConstants2
+    internal static class WebHCatConstants
     {
         internal const string Jar = "jar";
         internal const string Execute = "execute";

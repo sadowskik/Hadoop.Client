@@ -23,7 +23,7 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
     /// <summary>
     /// Base class for Remote jobDetails Payload Conversions.
     /// </summary>
-    internal class PayloadConverterBase
+    internal class JsonPayloadConverterBase
     {
         internal const string HadoopStreamingJarFile = "hadoop-streaming.jar";
         internal const string NoneReducer = "NONE";
@@ -42,7 +42,7 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
         /// </returns>
         public string SerializeMapReduceRequest(string userName, MapReduceJobCreateParameters details)
         {
-            details.ArgumentNotNull("details");
+            //details.ArgumentNotNull("details");
             var values = new List<KeyValuePair<string, string>>();
             values.AddRange(this.SerializeJobRequest(userName, details, details.JobName, details.Arguments, details.Defines));
             values.Add(new KeyValuePair<string, string>(WebHCatConstants.Jar, details.JarFile));
@@ -65,7 +65,7 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
         /// </returns>
         public string SerializeStreamingMapReduceRequest(string userName, StreamingMapReduceJobCreateParameters details)
         {
-            details.ArgumentNotNull("details");
+            //details.ArgumentNotNull("details");
             var values = new List<KeyValuePair<string, string>>();
             values.Add(new KeyValuePair<string, string>(WebHCatConstants.Input, details.Input));
             values.Add(new KeyValuePair<string, string>(WebHCatConstants.Output, details.Output));
@@ -93,7 +93,7 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
         /// <returns>A string that represents the payload for the request.</returns>
         public string SerializeHiveRequest(string userName, HiveJobCreateParameters details)
         {
-            details.ArgumentNotNull("details");
+            //details.ArgumentNotNull("details");
             return this.SerializeQueryRequest(userName, details, details.JobName, details.File, details.Query, WebHCatConstants.Execute, details.Arguments, details.Defines);
         }
 
@@ -105,7 +105,7 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
         /// <returns>A string that represents the payload for the request.</returns>
         public string SerializePigRequest(string userName, PigJobCreateParameters details)
         {
-            details.ArgumentNotNull("details");
+            //details.ArgumentNotNull("details");
             return this.SerializeQueryRequest(userName, details, string.Empty, details.File, details.Query, WebHCatConstants.Execute, details.Arguments, null);
         }
 
@@ -117,20 +117,20 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
         /// <returns>A string that represents the payload for the request.</returns>
         public string SerializeSqoopRequest(string userName, SqoopJobCreateParameters details)
         {
-            details.ArgumentNotNull("details");
+            //details.ArgumentNotNull("details");
             return this.SerializeQueryRequest(userName, details, string.Empty, details.File, details.Command, WebHCatConstants.Command, null, null);
         }
 
         private string SerializeQueryRequest(string userName, JobCreateParameters details, string jobName, string file, string query, string queryFieldName, ICollection<string> arguments, IDictionary<string, string> defines)
         {
-            queryFieldName.ArgumentNotNullOrEmpty("queryFieldName");
-            details.ArgumentNotNull("details");
+            //queryFieldName.ArgumentNotNullOrEmpty("queryFieldName");
+            //details.ArgumentNotNull("details");
 
             var values = new List<KeyValuePair<string, string>>();
             values.AddRange(this.SerializeJobRequest(userName, details, jobName, arguments, defines));
             if (query.IsNullOrEmpty())
             {
-                file.ArgumentNotNullOrEmpty("file");
+                //file.ArgumentNotNullOrEmpty("file");
                 values.Add(new KeyValuePair<string, string>(WebHCatConstants.File, file));
             }
             else
@@ -146,7 +146,7 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
         {
             var values = new List<KeyValuePair<string, string>>();
 
-            if (defines.IsNotNull())
+            if (defines != null)
             {
                 if (jobName.IsNotNullOrEmpty() && !defines.ContainsKey(WebHCatConstants.DefineJobName))
                 {
@@ -156,9 +156,9 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
                 values.AddRange(this.BuildNameValueList(WebHCatConstants.Define, defines));
             }
 
-            if (arguments.IsNotNull())
+            if (arguments != null)
             {
-                if (jobName.IsNotNullOrEmpty() && defines.IsNull())
+                if (jobName.IsNotNullOrEmpty() && defines != null)
                 {
                     arguments.Add(string.Format(CultureInfo.InvariantCulture, "{0}={1}", WebHCatConstants.DefineJobName, jobName));
                 }

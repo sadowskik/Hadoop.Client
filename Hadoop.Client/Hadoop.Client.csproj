@@ -79,8 +79,9 @@
     <Compile Include="Jobs\PigJobCreateParameters.cs" />
     <Compile Include="Jobs\SqoopJobCreateParameters.cs" />
     <Compile Include="Jobs\StreamingMapReduceJobCreateParameters.cs" />
-    <Compile Include="Jobs\WebHCatalog\Data\PayloadConverter.cs" />
-    <Compile Include="Jobs\WebHCatalog\Data\PayloadConverterBase.cs" />
+    <Compile Include="Jobs\WebHCatalog\Data\JsonPayloadConverter.cs" />
+    <Compile Include="Jobs\WebHCatalog\Data\JsonPayloadConverterBase.cs" />
+    <Compile Include="Jobs\WebHCatalog\IPayloadConverter.cs" />
     <Compile Include="Jobs\WebHCatalog\WebHCatalogJobClient.cs" />
     <Compile Include="HadoopRemoteRestHardCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
