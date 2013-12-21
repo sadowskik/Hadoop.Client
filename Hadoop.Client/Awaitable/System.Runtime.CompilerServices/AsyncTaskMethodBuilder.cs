@@ -12,11 +12,13 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
+
+// ReSharper disable once CheckNamespace
 namespace System.Runtime.CompilerServices
 {
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Threading.Tasks;
+    using Diagnostics;
+    using Diagnostics.CodeAnalysis;
+    using Threading.Tasks;
 
     /// <summary>
     /// Represents a builder for asynchronous methods that return a task.
@@ -26,7 +28,7 @@ namespace System.Runtime.CompilerServices
     [DebuggerNonUserCode]
     public struct AsyncTaskMethodBuilder
     {
-        private TaskCompletionSource<object> tcs;
+        private TaskCompletionSource<object> _tcs;
 
         /// <summary>
         /// Gets the task for this builder.
@@ -35,7 +37,7 @@ namespace System.Runtime.CompilerServices
         {
             get
             {
-                return this.tcs.Task;
+                return _tcs.Task;
             }
         }
 
@@ -49,7 +51,7 @@ namespace System.Runtime.CompilerServices
         public static AsyncTaskMethodBuilder Create()
         {
             AsyncTaskMethodBuilder b;
-            b.tcs = new TaskCompletionSource<object>();
+            b._tcs = new TaskCompletionSource<object>();
             return b;
         }
 
@@ -142,7 +144,7 @@ namespace System.Runtime.CompilerServices
         [DebuggerNonUserCode]
         public void SetResult()
         {
-            this.tcs.SetResult(null);
+            _tcs.SetResult(null);
         }
 
         /// <summary>
@@ -154,7 +156,7 @@ namespace System.Runtime.CompilerServices
         [DebuggerNonUserCode]
         public void SetException(Exception exception)
         {
-            this.tcs.SetException(exception);
+            _tcs.SetException(exception);
         }
     }
 }

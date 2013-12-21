@@ -12,11 +12,13 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
+
+// ReSharper disable once CheckNamespace
 namespace System.Runtime.CompilerServices
 {
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Threading.Tasks;
+    using Diagnostics;
+    using Diagnostics.CodeAnalysis;
+    using Threading.Tasks;
 
     /// <summary>
     /// Represents a builder for asynchronous methods that return a task.
@@ -32,7 +34,7 @@ namespace System.Runtime.CompilerServices
         /// <summary>
         /// The TaskCompletionSource for this builder.
         /// </summary>
-        private TaskCompletionSource<T> tcs;
+        private TaskCompletionSource<T> _tcs;
 
         /// <summary>
         /// Gets the task for this builder.
@@ -42,7 +44,7 @@ namespace System.Runtime.CompilerServices
         {
             get
             {
-                return this.tcs.Task;
+                return _tcs.Task;
             }
         }
 
@@ -58,7 +60,7 @@ namespace System.Runtime.CompilerServices
         public static AsyncTaskMethodBuilder<T> Create()
         {
             AsyncTaskMethodBuilder<T> builder;
-            builder.tcs = new TaskCompletionSource<T>();
+            builder._tcs = new TaskCompletionSource<T>();
             return builder;
         }
 
@@ -142,7 +144,7 @@ namespace System.Runtime.CompilerServices
             where TAwaiter : ICriticalNotifyCompletion
             where TStateMachine : IAsyncStateMachine
         {
-            this.AwaitOnCompleted(ref awaiter, ref stateMachine);
+            AwaitOnCompleted(ref awaiter, ref stateMachine);
         }
 
         /// <summary>
@@ -154,7 +156,7 @@ namespace System.Runtime.CompilerServices
         [DebuggerNonUserCode]
         public void SetResult(T result)
         {
-            this.tcs.SetResult(result);
+            _tcs.SetResult(result);
         }
 
         /// <summary>
@@ -166,7 +168,7 @@ namespace System.Runtime.CompilerServices
         [DebuggerNonUserCode]
         public void SetException(Exception exception)
         {
-            this.tcs.SetException(exception);
+            _tcs.SetException(exception);
         }
     }
 }

@@ -12,10 +12,12 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
+
+// ReSharper disable once CheckNamespace
 namespace System.Threading.Tasks
 {
-    using System.IO;
-    using System.Diagnostics;
+    using IO;
+    using Diagnostics;
 
     /// <summary>
     /// Provides core extension methods for task.
@@ -38,10 +40,7 @@ namespace System.Threading.Tasks
             {
                 throw new ArgumentNullException("source");
             }
-            else
-            {
-                return Task.Factory.StartNew<string>((Func<string>)(() => source.ReadToEnd()), CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
-            }
+            return Task.Factory.StartNew(() => source.ReadToEnd(), CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
         }
 
         /// <summary>

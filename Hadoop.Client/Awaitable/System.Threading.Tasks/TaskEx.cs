@@ -12,14 +12,13 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
+
+// ReSharper disable once CheckNamespace
 namespace System.Threading.Tasks
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Text;
+    using Diagnostics;
+    using Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Provides extra functions to be used in place of NetFx 4.5 task standard static methods.
@@ -67,7 +66,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public static Task Run(Action action)
         {
-            return TaskEx.Run(action, CancellationToken.None);
+            return Run(action, CancellationToken.None);
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public static Task<TResult> Run<TResult>(Func<TResult> function)
         {
-            return TaskEx.Run<TResult>(function, CancellationToken.None);
+            return Run(function, CancellationToken.None);
         }
 
         /// <summary>
@@ -115,7 +114,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public static Task<TResult> Run<TResult>(Func<TResult> function, CancellationToken cancellationToken)
         {
-            return Task.Factory.StartNew<TResult>(function, cancellationToken, TaskCreationOptions.None, TaskScheduler.Default);
+            return Task.Factory.StartNew(function, cancellationToken, TaskCreationOptions.None, TaskScheduler.Default);
         }
 
         /// <summary>
@@ -129,7 +128,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public static Task Run(Func<Task> function)
         {
-            return TaskEx.Run(function, CancellationToken.None);
+            return Run(function, CancellationToken.None);
         }
 
         /// <summary>
@@ -143,7 +142,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public static Task Run(Func<Task> function, CancellationToken cancellationToken)
         {
-            return TaskExtensions.Unwrap(TaskEx.Run<Task>(function, cancellationToken));
+            return Run<Task>(function, cancellationToken).Unwrap();
         }
 
         /// <summary>
@@ -160,7 +159,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public static Task<TResult> Run<TResult>(Func<Task<TResult>> function)
         {
-            return TaskEx.Run<TResult>(function, CancellationToken.None);
+            return Run(function, CancellationToken.None);
         }
 
         /// <summary>
@@ -177,7 +176,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public static Task<TResult> Run<TResult>(Func<Task<TResult>> function, CancellationToken cancellationToken)
         {
-            return TaskExtensions.Unwrap<TResult>(TaskEx.Run<Task<TResult>>(function, cancellationToken));
+            return Run<Task<TResult>>(function, cancellationToken).Unwrap();
         }
     }
 }

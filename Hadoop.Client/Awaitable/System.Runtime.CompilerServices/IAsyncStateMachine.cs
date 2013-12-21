@@ -12,22 +12,26 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
+
+// ReSharper disable once CheckNamespace
 namespace System.Runtime.CompilerServices
 {
-    using System.Security;
-
     /// <summary>
-    ///     Represents an awaiter that schedules continuations when an await operation completes.
+    /// Represents state machines that are generated for asynchronous methods. This type is intended for compiler use only.
     /// </summary>
-    public interface ICriticalNotifyCompletion : INotifyCompletion
+    public interface IAsyncStateMachine
     {
         /// <summary>
-        /// Schedules the continuation action that's invoked when the instance completes.
+        /// Moves the state machine to its next state.
         /// </summary>
-        /// <param name="continuation">
-        /// The action to invoke when the operation completes.
+        void MoveNext();
+
+        /// <summary>
+        /// Configures the state machine with a heap-allocated replica.
+        /// </summary>
+        /// <param name="stateMachine">
+        /// The heap-allocated replica.
         /// </param>
-        [SecurityCritical]
-        void UnsafeOnCompleted(Action continuation);
+        void SetStateMachine(IAsyncStateMachine stateMachine);
     }
 }

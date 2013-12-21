@@ -12,12 +12,15 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
+
+
+// ReSharper disable once CheckNamespace
 namespace System.Threading.Tasks
 {
     using System;
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Runtime.CompilerServices;
+    using Diagnostics;
+    using Diagnostics.CodeAnalysis;
+    using Runtime.CompilerServices;
 
     /// <summary>
     /// Provides an object that waits for the completion of an asynchronous task.
@@ -27,7 +30,7 @@ namespace System.Threading.Tasks
     [DebuggerNonUserCode]
     public struct TaskAwaiter : INotifyCompletion
     {
-        private readonly Task task;
+        private readonly Task _task;
 
         /// <summary>
         /// Initializes a new instance of the TaskAwaiter structure.
@@ -38,7 +41,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public TaskAwaiter(Task task)
         {
-            this.task = task;
+            _task = task;
         }
 
         /// <summary>
@@ -59,7 +62,7 @@ namespace System.Threading.Tasks
         [DebuggerNonUserCode]
         public bool IsCompleted
         {
-            get { return this.task.IsCompleted; }
+            get { return _task.IsCompleted; }
         }
 
         /// <summary>
@@ -82,7 +85,7 @@ namespace System.Threading.Tasks
         {
             try
             {
-                this.task.Wait();
+                _task.Wait();
             }
             catch (AggregateException ex)
             {

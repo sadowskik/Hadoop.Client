@@ -12,19 +12,28 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
-namespace System.Runtime.CompilerServices
+
+// ReSharper disable once CheckNamespace
+namespace System.Threading.Tasks
 {
-    /// <summary>
-    ///     Represents an operation that schedules continuations when it completes.
-    /// </summary>
-    public interface INotifyCompletion
+    using Diagnostics;
+
+    internal static class TaskSchedularHelper
     {
         /// <summary>
-        /// Schedules the continuation action that's invoked when the instance completes.
+        /// Gets a task scheduler.
         /// </summary>
-        /// <param name="continuation">
-        /// The action to invoke when the operation completes.
-        /// </param>
-        void OnCompleted(Action continuation);
+        [DebuggerNonUserCode]
+        public static TaskScheduler TaskScheduler
+        {
+            get
+            {
+                if (SynchronizationContext.Current == null)
+                {
+                    return TaskScheduler.Default;
+                }
+                return TaskScheduler.FromCurrentSynchronizationContext();
+            }
+        }
     }
 }

@@ -12,10 +12,12 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
+
+// ReSharper disable once CheckNamespace
 namespace System.Runtime.CompilerServices
 {
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
+    using Diagnostics;
+    using Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Represents a builder for asynchronous methods that do not return a value.

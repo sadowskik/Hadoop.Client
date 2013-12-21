@@ -12,30 +12,24 @@
 // 
 // See the Apache Version 2.0 License for specific language governing
 // permissions and limitations under the License.
-namespace System.Threading.Tasks
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Text;
 
-    internal static class TaskSchedularHelper
+// ReSharper disable once CheckNamespace
+namespace System.Runtime.CompilerServices
+{
+    using Security;
+
+    /// <summary>
+    ///     Represents an awaiter that schedules continuations when an await operation completes.
+    /// </summary>
+    public interface ICriticalNotifyCompletion : INotifyCompletion
     {
         /// <summary>
-        /// Gets a task scheduler.
+        /// Schedules the continuation action that's invoked when the instance completes.
         /// </summary>
-        [DebuggerNonUserCode]
-        public static TaskScheduler TaskScheduler
-        {
-            get
-            {
-                if (SynchronizationContext.Current == null)
-                {
-                    return TaskScheduler.Default;
-                }
-                return TaskScheduler.FromCurrentSynchronizationContext();
-            }
-        }
+        /// <param name="continuation">
+        /// The action to invoke when the operation completes.
+        /// </param>
+        [SecurityCritical]
+        void UnsafeOnCompleted(Action continuation);
     }
 }
