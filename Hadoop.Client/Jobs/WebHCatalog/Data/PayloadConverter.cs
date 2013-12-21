@@ -17,12 +17,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using Maelstrom.Hadoop.Client.Core.Library;
-using Maelstrom.Hadoop.Client.Core.Library.Json;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Maelstrom.Hadoop.Client.WebHCat.Data
+namespace Hadoop.Client.Jobs.WebHCatalog.Data
 {
     internal class PayloadConverter : PayloadConverterBase
     {

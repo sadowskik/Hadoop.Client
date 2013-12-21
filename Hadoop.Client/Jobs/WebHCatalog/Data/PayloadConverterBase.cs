@@ -17,11 +17,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using Maelstrom.Hadoop.Client.Core.Library;
-using Maelstrom.Hadoop.Client.WebHCat.HadoopJobSubmissionRestCleint.Remote;
-using Maelstrom.Hadoop.Client.WebHCat.WebHCatResources;
 
-namespace Maelstrom.Hadoop.Client.WebHCat.Data
+namespace Hadoop.Client.Jobs.WebHCatalog.Data
 {
     /// <summary>
     /// Base class for Remote jobDetails Payload Conversions.
