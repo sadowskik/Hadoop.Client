@@ -16,7 +16,7 @@
 using System;
 using Newtonsoft.Json.Linq;
 
-namespace Hadoop.Client.WebHdfs
+namespace Hadoop.Client.Hdfs
 {
     // todo - make abstract
     public class DirectoryEntry : Resource
@@ -47,7 +47,7 @@ namespace Hadoop.Client.WebHdfs
             Permission = value.Value<string>("permission");
             Replication = value.Value<int>("replication");
             Type = value.Value<string>("type");
-            base.Info = value;
+            Info = value;
         }
 
     }

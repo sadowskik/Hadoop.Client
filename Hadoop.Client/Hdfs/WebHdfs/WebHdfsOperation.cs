@@ -1,8 +1,6 @@
-﻿// Copyright (c) Microsoft Corporation
-// All rights reserved.
-//
-namespace Hadoop.Client.WebHdfs
-{   
+﻿namespace Hadoop.Client.Hdfs.WebHdfs
+{
+    // ReSharper disable InconsistentNaming
     internal enum WebHdfsOperation
     {
         OPEN,

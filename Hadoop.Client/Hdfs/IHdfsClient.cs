@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Hadoop.Client.WebHdfs
+namespace Hadoop.Client.Hdfs
 {
     public interface IHdfsClient
     {

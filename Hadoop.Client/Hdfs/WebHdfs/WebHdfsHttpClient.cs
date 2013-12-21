@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Hadoop.Client.WebHdfs
+namespace Hadoop.Client.Hdfs.WebHdfs
 {   
     public class WebHdfsHttpClient : IHdfsClient
     {
@@ -83,28 +81,11 @@ namespace Hadoop.Client.WebHdfs
 
         private HttpClient CreateHttpClient(bool allowsAutoRedirect = true)
         {
-            var client = new HttpClient(new WebRequestHandler {AllowAutoRedirect = allowsAutoRedirect});
-
-            AddBasicAuthentication(client);
-
-            client.DefaultRequestHeaders.Add("accept", "application/octet-stream");
-            client.DefaultRequestHeaders.Add("accept", "application/json");
-
-            return client;
-        }
-
-        private void AddBasicAuthentication(HttpClient client)
-        {
-            var userName = _authCredential.UserName;
-            var password = _authCredential.Password;
-
-            if (userName == null || password == null)
-                return;
-
-            var byteArray = Encoding.ASCII.GetBytes(userName + ":" + password);
-
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                "Basic", Convert.ToBase64String(byteArray));
+            return HttpClientBuilder.Create(allowsAutoRedirect)
+                .WithBasicAuthenticationFrom(_authCredential)
+                .AcceptJson()
+                .AcceptOctetStream()
+                .Build();
         }
 
         private Uri CreateRequestUri(WebHdfsOperation operation, string path, List<KeyValuePair<string, string>> parameters)
@@ -113,7 +94,7 @@ namespace Hadoop.Client.WebHdfs
                 parameters = new List<KeyValuePair<string, string>>();
 
             parameters.Add(new KeyValuePair<string, string>(
-                WebHdfsConstants.UserName,
+                HadoopRemoteRestConstants.UserName,
                 _authCredential.UserName.EscapeDataString()));
 
             string paramString = parameters.Aggregate("",

@@ -1,9 +1,6 @@
-﻿// Copyright (c) Microsoft Corporation
-// All rights reserved.
-// 
-namespace Hadoop.Client.WebHdfs
+﻿namespace Hadoop.Client
 {
-    public static class WebHdfsConstants
+    public static class HadoopRemoteRestConstants
     {        
         internal const string Jobs = "templeton/v1/jobs";
         internal const string UserName = "user.name";
