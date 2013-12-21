@@ -13,7 +13,7 @@ namespace Hadoop.Client.Tests
         [Fact]
         public void read_content_via_web_hdfs()
         {
-            var hdfsClient = new WebHdfsHttpClient(With(WebHdfsBase));
+            var hdfsClient = new WebHdfsHttpClient(Connect.WithTestUser(to: WebHdfsBase));
 
             var file = hdfsClient.OpenFile("/user/hue/test.output/stdout").Result;
 
@@ -28,17 +28,9 @@ namespace Hadoop.Client.Tests
         [Fact]
         public void write_content_via_web_hdfs()
         {
-            var hdfsClient = new WebHdfsHttpClient(With(WebHdfsBase));
+            var hdfsClient = new WebHdfsHttpClient(Connect.WithTestUser(to: WebHdfsBase));
 
             hdfsClient.CreateDirectory("/abc2").Result.Should().BeTrue();
-        }
-
-        private static ConnectionConfig With(string baseUrl)
-        {
-            return new ConnectionConfig(
-                server: new Uri(baseUrl),
-                userName: "hue",
-                password: "");
-        }
+        }        
     }
 }

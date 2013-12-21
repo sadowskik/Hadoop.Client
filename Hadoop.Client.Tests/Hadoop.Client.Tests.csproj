@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connect.cs" />
+    <Compile Include="JobSchedulingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebHdfsClientTests.cs" />
   </ItemGroup>

@@ -1,18 +1,3 @@
-// Copyright (c) Microsoft Corporation
-// All rights reserved.
-// 
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not
-// use this file except in compliance with the License.  You may obtain a copy
-// of the License at http://www.apache.org/licenses/LICENSE-2.0
-// 
-// THIS CODE IS PROVIDED *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-// WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-// MERCHANTABLITY OR NON-INFRINGEMENT.
-// 
-// See the Apache Version 2.0 License for specific language governing
-// permissions and limitations under the License.
-
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
@@ -21,7 +6,8 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
 {
     internal class JsonPayloadConverter : JsonPayloadConverterBase, IPayloadConverter
     {
-        private readonly DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        private readonly DateTime _unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+
         private const string ExitValuePropertyName = "exitValue";
         private const string RunStatePropertyName = "runState";
         private const string PercentCompletePropertyName = "percentComplete";
@@ -121,33 +107,23 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
         public JobDetails DeserializeJobDetails(string payload)
         {
             var job = JObject.Parse(payload);
+            var status = job[StatusDirectoryPropertyName];
 
+            //TODO: thats not everything
             return new JobDetails
             {
-                Callback = job["userargs"].Value<string>("callback"),
-                JobId = job["status"].Value<string>("jobId"),
-                ExitCode = job.Value<int?>("exitValue"),
-
-                SubmissionTime = unixEpoch.AddMilliseconds(job["status"].Value<int>("startTime")),
-                StatusCode = GetStatusCode(job),
+                Callback = job[UserArgsPropertyName].Value<string>(Callback),
+                JobId = status.Value<string>(JobId),
+                ExitCode = job.Value<int?>(ExitValuePropertyName),
+                SubmissionTime = _unixEpoch.AddMilliseconds(status.Value<int>(StartTimePropertyName)),
+                StatusCode = GetStatusCode(status),
             };
-
-            //using (var parser = new JsonParser(payload))
-            //{
-            //    var job = parser.ParseNext();
-
-            //    if (!job.IsValidObject())
-            //    {
-            //        throw new InvalidOperationException();
-            //    }
-            //    return this.DeserializeJobDetails((JsonObject)job);
-            //}
         }
 
-        private static JobStatusCode GetStatusCode(JObject job)
+        private static JobStatusCode GetStatusCode(JToken status)
         {
-            var code = job["status"].Value<string>("runState");
-
+            var code = status.Value<string>(RunStatePropertyName);
+            
             JobStatusCode result;
             return Enum.TryParse(code, true, out result)
                 ? result
