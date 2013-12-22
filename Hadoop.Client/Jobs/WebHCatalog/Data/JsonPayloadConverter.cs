@@ -86,7 +86,7 @@ namespace Hadoop.Client.Jobs.WebHCatalog.Data
         public JobDetails DeserializeJobDetails(string payload)
         {
             var job = JObject.Parse(payload);
-            var status = job[StatusDirectoryPropertyName];
+            var status = job[StatusPropertyName];
 
             //TODO: thats not everything
             return new JobDetails

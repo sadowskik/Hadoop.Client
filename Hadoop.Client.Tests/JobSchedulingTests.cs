@@ -10,8 +10,8 @@ namespace Hadoop.Client.Tests
 {
     public class JobSchedulingTests
     {
-        private const string WebHcatBase = @"http://localhost:50111/";
-        private const string WebHdfsBase = @"http://localhost:50070/";
+        private const string WebHcatBase = @"http://sandbox.hortonworks.com:50111/";
+        private const string WebHdfsBase = @"http://sandbox.hortonworks.com:50070/";
 
         [Fact]
         public void schedule_hive_job()
