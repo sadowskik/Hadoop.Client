@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using FluentAssertions;
 using Hadoop.Client.Hdfs.WebHdfs;
+using NFluent;
 using Xunit;
 
 namespace Hadoop.Client.Tests
@@ -29,8 +29,10 @@ namespace Hadoop.Client.Tests
         public void write_content_via_web_hdfs()
         {
             var hdfsClient = new WebHdfsHttpClient(Connect.WithTestUser(to: WebHdfsBase));
+            
+            var directoryCreated = hdfsClient.CreateDirectory("/abc2").Result;
 
-            hdfsClient.CreateDirectory("/abc2").Result.Should().BeTrue();
+            Check.That(directoryCreated).IsTrue();
         }        
     }
 }

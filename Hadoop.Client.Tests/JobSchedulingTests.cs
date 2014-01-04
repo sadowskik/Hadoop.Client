@@ -1,9 +1,9 @@
 ﻿using System;
-using FluentAssertions;
 using Hadoop.Client.Hdfs.WebHdfs;
 using Hadoop.Client.Jobs;
 using Hadoop.Client.Jobs.Hive;
 using Hadoop.Client.Jobs.WebHCatalog;
+using NFluent;
 using Xunit;
 
 namespace Hadoop.Client.Tests
@@ -36,7 +36,7 @@ namespace Hadoop.Client.Tests
 
             var result = client.SubmitHiveJob(job).Result;
 
-            result.JobId.Should().NotBeNullOrEmpty();
+            Check.That(result.JobId).IsNotEmpty().And.IsNotNull();                            
             Console.WriteLine(result.JobId);
         }
 
@@ -55,8 +55,8 @@ namespace Hadoop.Client.Tests
                     SORT BY s07.salary DESC";
 
             var result = CreateApacheHiveClient().Query(hiveQuery).Result;
-
-            result.Should().NotBeNullOrEmpty();
+            
+            Check.That(result).IsNotEmpty().And.IsNotNull();
             Console.WriteLine(result);
         }
 
