@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Hadoop.Client.Jobs.Hive
+namespace Hadoop.Client.Queries
 {
     public interface IReadResults<out TResult>
     {

@@ -85,9 +85,9 @@
     <Compile Include="ConnectionConfig.cs" />
     <Compile Include="HttpClientBuilder.cs" />
     <Compile Include="Jobs\HiveJobCreateParameters.cs" />
-    <Compile Include="Jobs\Hive\HiveClient.cs" />
-    <Compile Include="Jobs\Hive\HiveClientConfig.cs" />
-    <Compile Include="Jobs\Hive\IReadResults.cs" />
+    <Compile Include="Queries\HiveClient.cs" />
+    <Compile Include="Queries\HiveClientConfig.cs" />
+    <Compile Include="Queries\IReadResults.cs" />
     <Compile Include="Jobs\IHadoopClientExtensions.cs" />
     <Compile Include="Jobs\IHadoopJobClient.cs" />
     <Compile Include="Jobs\JobCreateHttpResponse.cs" />

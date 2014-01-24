@@ -1,8 +1,8 @@
 ﻿using System;
 using Hadoop.Client.Hdfs.WebHdfs;
 using Hadoop.Client.Jobs;
-using Hadoop.Client.Jobs.Hive;
 using Hadoop.Client.Jobs.WebHCatalog;
+using Hadoop.Client.Queries;
 using NFluent;
 using Xunit;
 

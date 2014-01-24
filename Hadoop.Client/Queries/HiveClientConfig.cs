@@ -1,4 +1,4 @@
-﻿namespace Hadoop.Client.Jobs.Hive
+﻿namespace Hadoop.Client.Queries
 {
     public class HiveClientConfig
     {

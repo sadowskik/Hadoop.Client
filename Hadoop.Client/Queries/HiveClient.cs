@@ -4,8 +4,9 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Hadoop.Client.Hdfs;
+using Hadoop.Client.Jobs;
 
-namespace Hadoop.Client.Jobs.Hive
+namespace Hadoop.Client.Queries
 {    
     //TODO: Very naive implementation, IMPROVE !!!    
     public class HiveClient
